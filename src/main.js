@@ -13,6 +13,4 @@ let gameConfig = {
     scene: new Tableau()
 };
 
-this.score = 0;
-this.vie = 3;
 let game = new Phaser.Game(gameConfig);
