@@ -436,6 +436,7 @@ class Tableau extends Phaser.Scene {
         if (this.balle.y < 0) {
             this.balleAucentre();
             this.vie = this.vie-1 ;
+
         }
     }
 }
