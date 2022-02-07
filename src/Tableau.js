@@ -100,7 +100,6 @@ class Tableau extends Phaser.Scene {
         positionRelativeRaquette = (positionRelativeRaquette / hauteurRaquette);
 
         positionRelativeRaquette = (positionRelativeRaquette * 2 - 1);
-        console.log(positionRelativeRaquette);
 
         this.balle.setVelocityX(this.balle.body.velocity.x + positionRelativeRaquette * hauteurRaquette)
     }
