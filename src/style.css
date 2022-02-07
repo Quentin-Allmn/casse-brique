@@ -1,0 +1,70 @@
+body{
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    background-color: #010101;
+    text-align: center;
+}
+h1 {
+    flex-basis :100%;
+    text-align : center;
+    text-decoration : underline;
+    color: #880000;
+    margin-top :2%;
+    font-size: 4vw;
+}
+a {
+    flex-basis: 100%;
+    text-align : center;
+    margin-top : 2%;
+    margin-bottom : 2%;
+    color: #880000;
+    font-size: 1vw;
+}
+a:hover{
+    color: #ff0000;
+    text-decoration: underline;
+}
+
+#game {
+    flex-basis :70%;
+    margin-top : 10%;
+    margin-bot :10%;
+}
+canvas{
+    outline: 1px solid #333;
+    border: 3mm ridge rgba(136, 0, 0, 1);
+}
+#joueur1{
+    color: #00d5d5;
+}
+#joueur2{
+    color: #d56b00;
+}
+#scores1{
+    color: #00d5d5;
+}
+#scores2{
+    color: #d56b00;
+}
+#scores{
+    margin-top :5%;
+    color: #ffffff;
+    font-size : 4vw;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.score{
+    color: red;
+}
+.name{
+    justify-content: center;
+    font-size: 2vw;
+}
+
+#scores >* {
+    margin: 3vw;
+}

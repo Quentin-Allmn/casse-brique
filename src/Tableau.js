@@ -1,11 +1,8 @@
 class Tableau extends Phaser.Scene {
     preload() {
 
-        this.load.image("carre3", "assets/carre3.png")
+        this.load.image("carre", "assets/carre.png")
         this.load.image("cercle", "assets/cercle.png")
-        this.load.image("carre1", "assets/carre1.png")
-        this.load.image("carre2", "assets/carre2.png")
-
     }
 
     create() {
@@ -20,31 +17,30 @@ class Tableau extends Phaser.Scene {
         this.haut.body.setAllowGravity(false);
         this.haut.setImmovable(true);
         /**
-         * Mur Bas
+         * Mur gauche
          * @type {Phaser.Physics.Arcade.Sprite & {body: Phaser.Physics.Arcade.Body}}
          */
-        this.bas = this.physics.add.sprite(0, this.height - 20, 'carre3').setOrigin(0, 0);
-        this.bas.setDisplaySize(this.width, 20);
-        this.bas.body.setAllowGravity(false);
-        this.bas.setImmovable(true);
-        /**
-         * Raquette Gauche
-         * @type {Phaser.Physics.Arcade.Sprite & {body: Phaser.Physics.Arcade.Body}}
-         */
-        this.gauche = this.physics.add.sprite(40, 200, 'carre1').setOrigin(0, 0);
-        this.gauche.setDisplaySize(20, 100);
+        this.gauche = this.physics.add.sprite(0, this.height - 20, 'carre3').setOrigin(0, 0);
+        this.gauche.setDisplaySize(this.width, 20);
         this.gauche.body.setAllowGravity(false);
         this.gauche.setImmovable(true);
-        this.gauche.setVelocityY(0);
         /**
-         * Raquette Droite
+         * Mur droit
          * @type {Phaser.Physics.Arcade.Sprite & {body: Phaser.Physics.Arcade.Body}}
          */
-        this.droite = this.physics.add.sprite(this.width - 40, 200, 'carre2').setOrigin(0, 0);
-        this.droite.setDisplaySize(20, 100);
-        this.droite.body.setAllowGravity(false);
-        this.droite.setImmovable(true);
-        this.droite.setVelocityY(0);
+        this.droit = this.physics.add.sprite(0, this.height - 20, 'carre3').setOrigin(0, 0);
+        this.droit.setDisplaySize(this.width, 20);
+        this.droit.body.setAllowGravity(false);
+        this.droit.setImmovable(true);
+        /**
+         * Raquette bas
+         * @type {Phaser.Physics.Arcade.Sprite & {body: Phaser.Physics.Arcade.Body}}
+         */
+        this.bas = this.physics.add.sprite(this.width - 40, 200, 'carre2').setOrigin(0, 0);
+        this.bas.setDisplaySize(20, 100);
+        this.bas.body.setAllowGravity(false);
+        this.bas.setImmovable(true);
+        this.bas.setVelocityY(0);
         /**
          * Balle
          * @type {Phaser.Physics.Arcade.Sprite & {body: Phaser.Physics.Arcade.Body}}
