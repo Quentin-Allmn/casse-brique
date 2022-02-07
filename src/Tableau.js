@@ -433,9 +433,10 @@ class Tableau extends Phaser.Scene {
         if (this.balle.x > this.width) {
             this.win;
         }
-        if (this.balle.y < 0) {
+        if (this.balle.y > 800) {
             this.balleAucentre();
             this.vie = this.vie-1 ;
+            console.log(this.vie);
 
         }
     }
