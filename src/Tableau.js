@@ -10,6 +10,7 @@ class Tableau extends Phaser.Scene {
         this.height = 800;
 
         this.score = 0;
+
         this.vie = 3;
         this.nbBrique = 45;
 
@@ -174,6 +175,7 @@ class Tableau extends Phaser.Scene {
         this.brique14.setDisplaySize(60, 30);
         this.brique14.setImmovable(true);
         this.physics.add.collider(this.balle, this.brique14);
+        this.brique14.setVisible(false);
 
         this.brique15 = this.physics.add.sprite(this.brique14.x+65, this.brique1.y+35, 'carre').setOrigin(0, 0);
         this.brique15.setDisplaySize(60, 30);
@@ -198,7 +200,7 @@ class Tableau extends Phaser.Scene {
 
     balleAucentre() {
         this.balle.x = this.width / 2
-        this.balle.y = this.height / 2
+        this.balle.y = this.height-200
         this.speedX = 0
 
         this.balle.setVelocityY(Math.random() > 0.5 ? -100 : 100)
