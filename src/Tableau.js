@@ -9,8 +9,8 @@ class Tableau extends Phaser.Scene {
     }
 
     create() {
-        this.width = 1000;
-        this.height = 500;
+        this.width = 800;
+        this.height = 800;
         /**
          * Mur Haut
          * @type {Phaser.Physics.Arcade.Sprite & {body: Phaser.Physics.Arcade.Body}}
