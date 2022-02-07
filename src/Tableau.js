@@ -384,8 +384,8 @@ class Tableau extends Phaser.Scene {
 
     bonus() {
 
-        //this.brique31.setTint(#ff0000);
-        //this.brique32.setTint(#00ff00);
+        //this.brique31.setTint(#00ff00);
+        //this.brique32.setTint(#ff0000);
 
         let me = this;
         if (me.balle.x == me.brique31.x || me.balle.y == me.brique31.y) {
