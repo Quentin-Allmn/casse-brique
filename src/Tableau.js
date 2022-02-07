@@ -394,6 +394,21 @@ class Tableau extends Phaser.Scene {
             me.score = me.score + 10;
         }
     }
+
+    destruction(brique){
+        let me = this;
+
+        let hauteurBrique = brique.displayHeight;
+
+        let positionRelativeBrique = (this.balle.x - brique.x);
+
+        positionRelativeBrique = (positionRelativeBrique / hauteurBrique);
+
+        positionRelativeBrique = (positionRelativeBrique * 2 - 1);
+
+        //this.brique.destroy();
+    }
+
     initKeyboard() {
         let me = this;
         this.input.keyboard.on('keyup', function (kevent) {
