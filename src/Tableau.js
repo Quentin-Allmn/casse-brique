@@ -14,6 +14,7 @@ class Tableau extends Phaser.Scene {
         this.vie = 3;
         this.nbBrique = 45;
 
+
         /**
          * Mur Haut
          * @type {Phaser.Physics.Arcade.Sprite & {body: Phaser.Physics.Arcade.Body}}
@@ -279,7 +280,7 @@ class Tableau extends Phaser.Scene {
         this.brique31.setDisplaySize(60, 30);
         this.brique31.setImmovable(true);
         this.physics.add.collider(this.balle, this.brique31);
-        //this.brique32.setTint(256,0,0);
+        //this.brique31.setTint(256,0,0);
 
         this.brique32 = this.physics.add.sprite(this.brique22.x + 65, this.brique19.y + 35, 'carre').setOrigin(0, 0);
         this.brique32.setDisplaySize(60, 30);
@@ -382,6 +383,15 @@ class Tableau extends Phaser.Scene {
         this.balleAucentre()
     }
 
+    bonus() {
+        let me = this;
+        if (me.balle.x == me.brique31.x || me.balle.y == me.brique31.y) {
+            me.vie = me.vie + 1;
+        }
+        if (me.balle.x == me.brique32.x || me.balle.y == me.brique32.y) {
+            me.score = me.score + 10;
+        }
+    }
     initKeyboard() {
         let me = this;
         this.input.keyboard.on('keyup', function (kevent) {
