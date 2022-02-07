@@ -68,7 +68,7 @@ class Tableau extends Phaser.Scene {
         this.physics.add.collider(this.balle, this.gauche);
 
         this.physics.add.collider(this.balle, this.raquette, function () {
-        console.log("touche droit")
+        console.log("touche raquette")
             me.rebond(me.raquette);
         });
 
