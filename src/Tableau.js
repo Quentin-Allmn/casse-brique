@@ -58,32 +58,42 @@ class Tableau extends Phaser.Scene {
         /**
          * Briques
          */
+        //première rangée
         this.brique1 = this.physics.add.sprite(110, 200, 'carre').setOrigin(0, 0);
         this.brique1.setDisplaySize(60, 30);
+        this.brique1.setImmovable(true);
 
         this.brique2 = this.physics.add.sprite(this.brique1.x+65, 200, 'carre').setOrigin(0, 0);
         this.brique2.setDisplaySize(60, 30);
+        this.brique2.setImmovable(true);
 
         this.brique3 = this.physics.add.sprite(this.brique2.x+65, 200, 'carre').setOrigin(0, 0);
         this.brique3.setDisplaySize(60, 30);
+        this.brique3.setImmovable(true);
 
         this.brique4 = this.physics.add.sprite(this.brique3.x+65, 200, 'carre').setOrigin(0, 0);
         this.brique4.setDisplaySize(60, 30);
+        this.brique4.setImmovable(true);
 
         this.brique5 = this.physics.add.sprite(this.brique4.x+65, 200, 'carre').setOrigin(0, 0);
         this.brique5.setDisplaySize(60, 30);
+        this.brique5.setImmovable(true);
 
         this.brique6 = this.physics.add.sprite(this.brique5.x+65, 200, 'carre').setOrigin(0, 0);
         this.brique6.setDisplaySize(60, 30);
+        this.brique6.setImmovable(true);
 
         this.brique7 = this.physics.add.sprite(this.brique6.x+65, 200, 'carre').setOrigin(0, 0);
         this.brique7.setDisplaySize(60, 30);
+        this.brique7.setImmovable(true);
 
         this.brique8 = this.physics.add.sprite(this.brique7.x+65, 200, 'carre').setOrigin(0, 0);
         this.brique8.setDisplaySize(60, 30);
+        this.brique8.setImmovable(true);
 
         this.brique9 = this.physics.add.sprite(this.brique8.x+65, 200, 'carre').setOrigin(0, 0);
         this.brique9.setDisplaySize(60, 30);
+        this.brique9.setImmovable(true);
         /**
          * Physics
          */
@@ -92,6 +102,8 @@ class Tableau extends Phaser.Scene {
         this.physics.add.collider(this.balle, this.droit);
         this.physics.add.collider(this.balle, this.haut);
         this.physics.add.collider(this.balle, this.gauche);
+
+        this.physics.add.collider(this.balle, this.brique5);
        // this.physics.add.collider(this.balle, this.droite, function () {
        //     console.log("touche droit")
        //     me.rebond(me.droite);
@@ -106,24 +118,24 @@ class Tableau extends Phaser.Scene {
         this.initKeyboard();
     }
 
-    rebond(raquette) {
+    rebond() {
 
         let me = this;
 
-        console.log(raquette.y)
-        console.log(me.balle.y)
-        console.log((me.balle.y) - (raquette.y))
+        console.log(me.raquette.x)
+        console.log(me.balle.x)
+        console.log((me.balle.x) - (me.raquette.x))
 
-        let hauteurRaquette = raquette.displayHeight;
+        let hauteurRaquette = me.raquette.displayHeight;
 
-        let positionRelativeRaquette = (this.balle.y - raquette.y);
+        let positionRelativeRaquette = (me.balle.x - me.raquetteraquette.x);
 
         positionRelativeRaquette = (positionRelativeRaquette / hauteurRaquette);
 
         positionRelativeRaquette = (positionRelativeRaquette * 2 - 1);
         console.log(positionRelativeRaquette);
 
-        this.balle.setVelocityY(this.balle.body.velocity.y + positionRelativeRaquette * hauteurRaquette)
+        this.balle.setVelocityX(this.balle.body.velocity.x + positionRelativeRaquette * hauteurRaquette)
     }
 
     balleAucentre() {
@@ -131,8 +143,8 @@ class Tableau extends Phaser.Scene {
         this.balle.y = this.height / 2
         this.speedX = 0
 
-        this.balle.setVelocityX(Math.random() > 0.5 ? -100 : 100)
-        this.balle.setVelocityY(0)
+        this.balle.setVelocityY(Math.random() > 0.5 ? -100 : 100)
+        this.balle.setVelocityX(0)
     }
 
 
