@@ -21,7 +21,7 @@ class Tableau extends Phaser.Scene {
          * @type {Phaser.Physics.Arcade.Sprite & {body: Phaser.Physics.Arcade.Body}}
          */
         this.gauche = this.physics.add.sprite(0, 0, 'carre').setOrigin(0, 0);
-        this.gauche.setDisplaySize(this.width, 20);
+        this.gauche.setDisplaySize(20, this.height);
         this.gauche.body.setAllowGravity(false);
         this.gauche.setImmovable(true);
         /**
@@ -29,18 +29,18 @@ class Tableau extends Phaser.Scene {
          * @type {Phaser.Physics.Arcade.Sprite & {body: Phaser.Physics.Arcade.Body}}
          */
         this.droit = this.physics.add.sprite(this.width, 0, 'carre').setOrigin(0, 0);
-        this.droit.setDisplaySize(800, 20);
+        this.droit.setDisplaySize(20, this.height);
         this.droit.body.setAllowGravity(false);
         this.droit.setImmovable(true);
         /**
          * Raquette bas
          * @type {Phaser.Physics.Arcade.Sprite & {body: Phaser.Physics.Arcade.Body}}
          */
-        this.bas = this.physics.add.sprite(this.width - 40, 200, 'carre').setOrigin(0, 0);
-        this.bas.setDisplaySize(20, 100);
-        this.bas.body.setAllowGravity(false);
-        this.bas.setImmovable(true);
-        this.bas.setVelocityY(0);
+        this.raquette = this.physics.add.sprite(this.width/2, this.height, 'carre').setOrigin(0, 0);
+        this.raquette.setDisplaySize(20, 100);
+        this.raquette.body.setAllowGravity(false);
+        this.raquette.setImmovable(true);
+        this.raquette.setVelocityY(0);
         /**
          * Balle
          * @type {Phaser.Physics.Arcade.Sprite & {body: Phaser.Physics.Arcade.Body}}
@@ -51,19 +51,21 @@ class Tableau extends Phaser.Scene {
         this.balle.setVelocityX(450);
         this.balle.setVelocityY(Phaser.Math.Between(350, 450));
         this.balle.setMaxVelocity(500);
+
+
         /**
          * Physics
          */
         let me = this;
 
-        this.physics.add.collider(this.balle, this.bas);
+        this.physics.add.collider(this.balle, this.droit);
         this.physics.add.collider(this.balle, this.haut);
 
         this.physics.add.collider(this.balle, this.gauche);
-        this.physics.add.collider(this.balle, this.droite, function () {
-            console.log("touche droit")
-            me.rebond(me.droite);
-        });
+       // this.physics.add.collider(this.balle, this.droite, function () {
+       //     console.log("touche droit")
+       //     me.rebond(me.droite);
+       // });
 
         if(this.balle<0)
         {
@@ -112,10 +114,7 @@ class Tableau extends Phaser.Scene {
         this.balle.setVelocityY(0)
     }
 
-    /**
-     *
-     * @param {Joueur} joueur
-     */
+
     win(joueur) {
         //alert('Joueur '+joueur.name+' gagne')
         joueur.score++;
@@ -128,40 +127,25 @@ class Tableau extends Phaser.Scene {
         this.input.keyboard.on('keyup', function (kevent) {
             switch (kevent.keyCode) {
                 // initialisation de la touche en appuis X pour descendre la raquette gauche
-                case Phaser.Input.Keyboard.KeyCodes.X:
-                    me.gauche.setVelocityY(0)
+                case Phaser.Input.Keyboard.KeyCodes.left:
+                    me.raquette.setVelocityX(0)
                     break;
                 // initialisation de la touche en appuis S pour Monter la raquette gauche
-                case Phaser.Input.Keyboard.KeyCodes.S:
-                    me.gauche.setVelocityY(0)
-                    break;
-                // initialisation de la touche en appuis N pour descendre la raquette Droite
-                case Phaser.Input.Keyboard.KeyCodes.N:
-                    me.droite.setVelocityY(0)
-                    break;
-                // initialisation de la touche en appuis J pour Monter la raquette Droite
-                case Phaser.Input.Keyboard.KeyCodes.J:
-                    me.droite.setVelocityY(0)
+                case Phaser.Input.Keyboard.KeyCodes.right:
+                    me.raquette.setVelocityX(0)
                     break;
             }
         })
         this.input.keyboard.on('keydown', function (kevent) {
             switch (kevent.keyCode) {
                 case Phaser.Input.Keyboard.KeyCodes.J:
-                    me.droite.setVelocityY(-300)
+                    me.raquette.setVelocityX(-300)
                     break;
 
                 case Phaser.Input.Keyboard.KeyCodes.N:
-                    me.droite.setVelocityY(300)
+                    me.raquette.setVelocityX(300)
                     break;
 
-                case Phaser.Input.Keyboard.KeyCodes.S:
-                    me.gauche.setVelocityY(-300)
-                    break;
-
-                case Phaser.Input.Keyboard.KeyCodes.X:
-                    me.gauche.setVelocityY(300)
-                    break;
             }
         })
     }
