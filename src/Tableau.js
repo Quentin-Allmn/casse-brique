@@ -10,6 +10,8 @@ class Tableau extends Phaser.Scene {
         this.height = 800;
 
         this.score = 0;
+        this.vie = 3;
+        this.nbBrique = 45;
 
         /**
          * Mur Haut
@@ -56,45 +58,6 @@ class Tableau extends Phaser.Scene {
         this.balle.setMaxVelocity(500);
 
         /**
-         * Briques
-         */
-        //première rangée
-        this.brique1 = this.physics.add.sprite(110, 200, 'carre').setOrigin(0, 0);
-        this.brique1.setDisplaySize(60, 30);
-        this.brique1.setImmovable(true);
-
-        this.brique2 = this.physics.add.sprite(this.brique1.x+65, 200, 'carre').setOrigin(0, 0);
-        this.brique2.setDisplaySize(60, 30);
-        this.brique2.setImmovable(true);
-
-        this.brique3 = this.physics.add.sprite(this.brique2.x+65, 200, 'carre').setOrigin(0, 0);
-        this.brique3.setDisplaySize(60, 30);
-        this.brique3.setImmovable(true);
-
-        this.brique4 = this.physics.add.sprite(this.brique3.x+65, 200, 'carre').setOrigin(0, 0);
-        this.brique4.setDisplaySize(60, 30);
-        this.brique4.setImmovable(true);
-
-        this.brique5 = this.physics.add.sprite(this.brique4.x+65, 200, 'carre').setOrigin(0, 0);
-        this.brique5.setDisplaySize(60, 30);
-        this.brique5.setImmovable(true);
-
-        this.brique6 = this.physics.add.sprite(this.brique5.x+65, 200, 'carre').setOrigin(0, 0);
-        this.brique6.setDisplaySize(60, 30);
-        this.brique6.setImmovable(true);
-
-        this.brique7 = this.physics.add.sprite(this.brique6.x+65, 200, 'carre').setOrigin(0, 0);
-        this.brique7.setDisplaySize(60, 30);
-        this.brique7.setImmovable(true);
-
-        this.brique8 = this.physics.add.sprite(this.brique7.x+65, 200, 'carre').setOrigin(0, 0);
-        this.brique8.setDisplaySize(60, 30);
-        this.brique8.setImmovable(true);
-
-        this.brique9 = this.physics.add.sprite(this.brique8.x+65, 200, 'carre').setOrigin(0, 0);
-        this.brique9.setDisplaySize(60, 30);
-        this.brique9.setImmovable(true);
-        /**
          * Physics
          */
         let me = this;
@@ -103,11 +66,10 @@ class Tableau extends Phaser.Scene {
         this.physics.add.collider(this.balle, this.haut);
         this.physics.add.collider(this.balle, this.gauche);
 
-        this.physics.add.collider(this.balle, this.brique5);
-       // this.physics.add.collider(this.balle, this.droite, function () {
-       //     console.log("touche droit")
-       //     me.rebond(me.droite);
-       // });
+        this.physics.add.collider(this.balle, this.raquette, function () {
+        console.log("touche droit")
+            me.rebond(me.raquette);
+        });
 
         if(this.balle.x>this.width)
         {
@@ -116,19 +78,21 @@ class Tableau extends Phaser.Scene {
         }
         this.balleAucentre();
         this.initKeyboard();
+        this.createbriques();
+        this.perdu();
     }
 
-    rebond() {
+    rebond(raquette) {
 
         let me = this;
 
-        console.log(me.raquette.x)
-        console.log(me.balle.x)
-        console.log((me.balle.x) - (me.raquette.x))
+        //console.log(raquette.x)
+       // console.log(me.balle.x)
+       // console.log((me.balle.x) - (raquette.x))
 
-        let hauteurRaquette = me.raquette.displayHeight;
+        let hauteurRaquette = raquette.displayHeight;
 
-        let positionRelativeRaquette = (me.balle.x - me.raquetteraquette.x);
+        let positionRelativeRaquette = (this.balle.x - raquette.x);
 
         positionRelativeRaquette = (positionRelativeRaquette / hauteurRaquette);
 
@@ -136,6 +100,100 @@ class Tableau extends Phaser.Scene {
         console.log(positionRelativeRaquette);
 
         this.balle.setVelocityX(this.balle.body.velocity.x + positionRelativeRaquette * hauteurRaquette)
+    }
+
+    createbriques(){
+        //première rangée
+        this.brique1 = this.physics.add.sprite(110, 200, 'carre').setOrigin(0, 0);
+        this.brique1.setDisplaySize(60, 30);
+        this.brique1.setImmovable(true);
+        this.physics.add.collider(this.balle, this.brique1);
+
+        this.brique2 = this.physics.add.sprite(this.brique1.x+65, 200, 'carre').setOrigin(0, 0);
+        this.brique2.setDisplaySize(60, 30);
+        this.brique2.setImmovable(true);
+        this.physics.add.collider(this.balle, this.brique2);
+
+        this.brique3 = this.physics.add.sprite(this.brique2.x+65, 200, 'carre').setOrigin(0, 0);
+        this.brique3.setDisplaySize(60, 30);
+        this.brique3.setImmovable(true);
+        this.physics.add.collider(this.balle, this.brique3);
+
+        this.brique4 = this.physics.add.sprite(this.brique3.x+65, 200, 'carre').setOrigin(0, 0);
+        this.brique4.setDisplaySize(60, 30);
+        this.brique4.setImmovable(true);
+        this.physics.add.collider(this.balle, this.brique4);
+
+        this.brique5 = this.physics.add.sprite(this.brique4.x+65, 200, 'carre').setOrigin(0, 0);
+        this.brique5.setDisplaySize(60, 30);
+        this.brique5.setImmovable(true);
+        this.physics.add.collider(this.balle, this.brique5);
+
+        this.brique6 = this.physics.add.sprite(this.brique5.x+65, 200, 'carre').setOrigin(0, 0);
+        this.brique6.setDisplaySize(60, 30);
+        this.brique6.setImmovable(true);
+        this.physics.add.collider(this.balle, this.brique6);
+
+        this.brique7 = this.physics.add.sprite(this.brique6.x+65, 200, 'carre').setOrigin(0, 0);
+        this.brique7.setDisplaySize(60, 30);
+        this.brique7.setImmovable(true);
+        this.physics.add.collider(this.balle, this.brique7);
+
+        this.brique8 = this.physics.add.sprite(this.brique7.x+65, 200, 'carre').setOrigin(0, 0);
+        this.brique8.setDisplaySize(60, 30);
+        this.brique8.setImmovable(true);
+        this.physics.add.collider(this.balle, this.brique8);
+
+        this.brique9 = this.physics.add.sprite(this.brique8.x+65, 200, 'carre').setOrigin(0, 0);
+        this.brique9.setDisplaySize(60, 30);
+        this.brique9.setImmovable(true);
+        this.physics.add.collider(this.balle, this.brique9);
+
+        //Deuxième rangée
+        this.brique10 = this.physics.add.sprite(110, this.brique1.y+35, 'carre').setOrigin(0, 0);
+        this.brique10.setDisplaySize(60, 30);
+        this.brique10.setImmovable(true);
+        this.physics.add.collider(this.balle, this.brique10);
+
+        this.brique11 = this.physics.add.sprite(this.brique10.x+65, this.brique1.y+35, 'carre').setOrigin(0, 0);
+        this.brique11.setDisplaySize(60, 30);
+        this.brique11.setImmovable(true);
+        this.physics.add.collider(this.balle, this.brique11);
+
+        this.brique12 = this.physics.add.sprite(this.brique11.x+65, this.brique1.y+35, 'carre').setOrigin(0, 0);
+        this.brique12.setDisplaySize(60, 30);
+        this.brique12.setImmovable(true);
+        this.physics.add.collider(this.balle, this.brique12);
+
+        this.brique13 = this.physics.add.sprite(this.brique12.x+65, this.brique1.y+35, 'carre').setOrigin(0, 0);
+        this.brique13.setDisplaySize(60, 30);
+        this.brique13.setImmovable(true);
+        this.physics.add.collider(this.balle, this.brique13);
+
+        this.brique14 = this.physics.add.sprite(this.brique13.x+65, this.brique1.y+35, 'carre').setOrigin(0, 0);
+        this.brique14.setDisplaySize(60, 30);
+        this.brique14.setImmovable(true);
+        this.physics.add.collider(this.balle, this.brique14);
+
+        this.brique15 = this.physics.add.sprite(this.brique14.x+65, this.brique1.y+35, 'carre').setOrigin(0, 0);
+        this.brique15.setDisplaySize(60, 30);
+        this.brique15.setImmovable(true);
+        this.physics.add.collider(this.balle, this.brique15);
+
+        this.brique16 = this.physics.add.sprite(this.brique15.x+65, this.brique1.y+35, 'carre').setOrigin(0, 0);
+        this.brique16.setDisplaySize(60, 30);
+        this.brique16.setImmovable(true);
+        this.physics.add.collider(this.balle, this.brique16);
+
+        this.brique17 = this.physics.add.sprite(this.brique16.x+65, this.brique1.y+35, 'carre').setOrigin(0, 0);
+        this.brique17.setDisplaySize(60, 30);
+        this.brique17.setImmovable(true);
+        this.physics.add.collider(this.balle, this.brique17);
+
+        this.brique18 = this.physics.add.sprite(this.brique17.x+65, this.brique1.y+35, 'carre').setOrigin(0, 0);
+        this.brique18.setDisplaySize(60, 30);
+        this.brique18.setImmovable(true);
+        this.physics.add.collider(this.balle, this.brique18);
     }
 
     balleAucentre() {
@@ -149,8 +207,18 @@ class Tableau extends Phaser.Scene {
 
 
     win() {
-
+        if (nbBrique <= 0){
+            alert("Gagné !")
+        }
+        this.createbriques();
         this.balleAucentre();
+    }
+
+    perdu(){
+        if (this.vie <= 0){
+            alert("perdu")
+        }
+        this.balleAucentre()
     }
 
     initKeyboard() {
@@ -191,8 +259,9 @@ class Tableau extends Phaser.Scene {
         if (this.balle.x > this.width) {
             this.win;
         }
-        if (this.balle.x < 0) {
-            this.win;
+        if (this.balle.y < 0) {
+            this.balleAucentre();
+            this.vie = this.vie-1 ;
         }
     }
 }
