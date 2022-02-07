@@ -8,6 +8,9 @@ class Tableau extends Phaser.Scene {
     create() {
         this.width = 800;
         this.height = 800;
+
+        this.score = 0;
+
         /**
          * Mur Haut
          * @type {Phaser.Physics.Arcade.Sprite & {body: Phaser.Physics.Arcade.Body}}
@@ -28,7 +31,7 @@ class Tableau extends Phaser.Scene {
          * Mur droit
          * @type {Phaser.Physics.Arcade.Sprite & {body: Phaser.Physics.Arcade.Body}}
          */
-        this.droit = this.physics.add.sprite(this.width, 0, 'carre').setOrigin(0, 0);
+        this.droit = this.physics.add.sprite(this.width-20, 0, 'carre').setOrigin(0, 0);
         this.droit.setDisplaySize(20, this.height);
         this.droit.body.setAllowGravity(false);
         this.droit.setImmovable(true);
@@ -36,8 +39,8 @@ class Tableau extends Phaser.Scene {
          * Raquette bas
          * @type {Phaser.Physics.Arcade.Sprite & {body: Phaser.Physics.Arcade.Body}}
          */
-        this.raquette = this.physics.add.sprite(this.width/2, this.height, 'carre').setOrigin(0, 0);
-        this.raquette.setDisplaySize(20, 100);
+        this.raquette = this.physics.add.sprite(this.width/2, this.height-30, 'carre').setOrigin(0, 0);
+        this.raquette.setDisplaySize(200, 20);
         this.raquette.body.setAllowGravity(false);
         this.raquette.setImmovable(true);
         this.raquette.setVelocityY(0);
@@ -52,7 +55,35 @@ class Tableau extends Phaser.Scene {
         this.balle.setVelocityY(Phaser.Math.Between(350, 450));
         this.balle.setMaxVelocity(500);
 
+        /**
+         * Briques
+         */
+        this.brique1 = this.physics.add.sprite(110, 200, 'carre').setOrigin(0, 0);
+        this.brique1.setDisplaySize(60, 30);
 
+        this.brique2 = this.physics.add.sprite(this.brique1.x+65, 200, 'carre').setOrigin(0, 0);
+        this.brique2.setDisplaySize(60, 30);
+
+        this.brique3 = this.physics.add.sprite(this.brique2.x+65, 200, 'carre').setOrigin(0, 0);
+        this.brique3.setDisplaySize(60, 30);
+
+        this.brique4 = this.physics.add.sprite(this.brique3.x+65, 200, 'carre').setOrigin(0, 0);
+        this.brique4.setDisplaySize(60, 30);
+
+        this.brique5 = this.physics.add.sprite(this.brique4.x+65, 200, 'carre').setOrigin(0, 0);
+        this.brique5.setDisplaySize(60, 30);
+
+        this.brique6 = this.physics.add.sprite(this.brique5.x+65, 200, 'carre').setOrigin(0, 0);
+        this.brique6.setDisplaySize(60, 30);
+
+        this.brique7 = this.physics.add.sprite(this.brique6.x+65, 200, 'carre').setOrigin(0, 0);
+        this.brique7.setDisplaySize(60, 30);
+
+        this.brique8 = this.physics.add.sprite(this.brique7.x+65, 200, 'carre').setOrigin(0, 0);
+        this.brique8.setDisplaySize(60, 30);
+
+        this.brique9 = this.physics.add.sprite(this.brique8.x+65, 200, 'carre').setOrigin(0, 0);
+        this.brique9.setDisplaySize(60, 30);
         /**
          * Physics
          */
@@ -60,27 +91,17 @@ class Tableau extends Phaser.Scene {
 
         this.physics.add.collider(this.balle, this.droit);
         this.physics.add.collider(this.balle, this.haut);
-
         this.physics.add.collider(this.balle, this.gauche);
        // this.physics.add.collider(this.balle, this.droite, function () {
        //     console.log("touche droit")
        //     me.rebond(me.droite);
        // });
 
-        if(this.balle<0)
+        if(this.balle.x>this.width)
         {
-            this.scoreplayer2 +=1;
-            this.textplayer1.setText('Player 1 = ' + this.scoreplayer1);
-
+            this.score +=1;
+            this.textscore.setText('Player 1 = ' + this.textscore);
         }
-
-        if(this.balle>this.width)
-        {
-            this.scoreplayer1  +=1;
-            this.textplayer2.setText('Player 2 = ' + this.scoreplayer2);
-        }
-
-
         this.balleAucentre();
         this.initKeyboard();
     }
@@ -115,10 +136,8 @@ class Tableau extends Phaser.Scene {
     }
 
 
-    win(joueur) {
-        //alert('Joueur '+joueur.name+' gagne')
-        joueur.score++;
-        //alert('Le score est de '+this.joueurGauche.score+' a '+this.joueurDroite.score)
+    win() {
+
         this.balleAucentre();
     }
 
@@ -127,11 +146,11 @@ class Tableau extends Phaser.Scene {
         this.input.keyboard.on('keyup', function (kevent) {
             switch (kevent.keyCode) {
                 // initialisation de la touche en appuis X pour descendre la raquette gauche
-                case Phaser.Input.Keyboard.KeyCodes.left:
+                case Phaser.Input.Keyboard.KeyCodes.J:
                     me.raquette.setVelocityX(0)
                     break;
                 // initialisation de la touche en appuis S pour Monter la raquette gauche
-                case Phaser.Input.Keyboard.KeyCodes.right:
+                case Phaser.Input.Keyboard.KeyCodes.N:
                     me.raquette.setVelocityX(0)
                     break;
             }
@@ -151,23 +170,17 @@ class Tableau extends Phaser.Scene {
     }
 
     update() {
-        if (this.gauche.y < this.haut.y + 20) {
-            this.gauche.y = this.haut.y + 20
+        if (this.raquette.x < 20) {
+            this.raquette.x = 20
         }
-        if (this.gauche.y > this.bas.y - 100) {
-            this.gauche.y = this.bas.y - 100
-        }
-        if (this.droite.y < this.haut.y + 20) {
-            this.droite.y = this.haut.y + 20
-        }
-        if (this.droite.y > this.bas.y - 100) {
-            this.droite.y = this.bas.y - 100
+        if (this.raquette.x > 600) {
+            this.raquette.x = 600
         }
         if (this.balle.x > this.width) {
-            this.win(this.joueurGauche);
+            this.win;
         }
         if (this.balle.x < 0) {
-            this.win(this.joueurDroite);
+            this.win;
         }
     }
 }
