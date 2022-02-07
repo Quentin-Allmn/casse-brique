@@ -12,7 +12,6 @@ class Tableau extends Phaser.Scene {
         this.score = 0;
 
         this.vie = 3;
-        this.nbBrique = 45;
 
 
         /**
@@ -43,7 +42,7 @@ class Tableau extends Phaser.Scene {
          * Raquette bas
          * @type {Phaser.Physics.Arcade.Sprite & {body: Phaser.Physics.Arcade.Body}}
          */
-        this.raquette = this.physics.add.sprite(this.width/2, this.height-30, 'carre').setOrigin(0, 0);
+        this.raquette = this.physics.add.sprite(this.width/2-100, this.height-30, 'carre').setOrigin(0, 0);
         this.raquette.setDisplaySize(200, 20);
         this.raquette.body.setAllowGravity(false);
         this.raquette.setImmovable(true);
@@ -369,9 +368,9 @@ class Tableau extends Phaser.Scene {
 
 
     win() {
-        if (nbBrique <= 0){
-            alert("Gagné !")
-        }
+       // if (nbBrique <= 0){
+       //     alert("Gagné !")
+       // }
         this.createbriques();
         this.balleAucentre();
     }
@@ -412,11 +411,11 @@ class Tableau extends Phaser.Scene {
         })
         this.input.keyboard.on('keydown', function (kevent) {
             switch (kevent.keyCode) {
-                case Phaser.Input.Keyboard.KeyCodes.RIGHT:
+                case Phaser.Input.Keyboard.KeyCodes.LEFT:
                     me.raquette.setVelocityX(-300)
                     break;
 
-                case Phaser.Input.Keyboard.KeyCodes.LEFT:
+                case Phaser.Input.Keyboard.KeyCodes.RIGHT:
                     me.raquette.setVelocityX(300)
                     break;
 
