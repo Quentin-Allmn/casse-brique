@@ -12,7 +12,7 @@ class Tableau extends Phaser.Scene {
          * Mur Haut
          * @type {Phaser.Physics.Arcade.Sprite & {body: Phaser.Physics.Arcade.Body}}
          */
-        this.haut = this.physics.add.sprite(0, 0, 'carre3').setOrigin(0, 0);
+        this.haut = this.physics.add.sprite(0, 0, 'carre').setOrigin(0, 0);
         this.haut.setDisplaySize(this.width, 20);
         this.haut.body.setAllowGravity(false);
         this.haut.setImmovable(true);
@@ -20,7 +20,7 @@ class Tableau extends Phaser.Scene {
          * Mur gauche
          * @type {Phaser.Physics.Arcade.Sprite & {body: Phaser.Physics.Arcade.Body}}
          */
-        this.gauche = this.physics.add.sprite(0, this.height - 20, 'carre3').setOrigin(0, 0);
+        this.gauche = this.physics.add.sprite(0, 0, 'carre').setOrigin(0, 0);
         this.gauche.setDisplaySize(this.width, 20);
         this.gauche.body.setAllowGravity(false);
         this.gauche.setImmovable(true);
@@ -28,15 +28,15 @@ class Tableau extends Phaser.Scene {
          * Mur droit
          * @type {Phaser.Physics.Arcade.Sprite & {body: Phaser.Physics.Arcade.Body}}
          */
-        this.droit = this.physics.add.sprite(0, this.height - 20, 'carre3').setOrigin(0, 0);
-        this.droit.setDisplaySize(this.width, 20);
+        this.droit = this.physics.add.sprite(this.width, 0, 'carre').setOrigin(0, 0);
+        this.droit.setDisplaySize(800, 20);
         this.droit.body.setAllowGravity(false);
         this.droit.setImmovable(true);
         /**
          * Raquette bas
          * @type {Phaser.Physics.Arcade.Sprite & {body: Phaser.Physics.Arcade.Body}}
          */
-        this.bas = this.physics.add.sprite(this.width - 40, 200, 'carre2').setOrigin(0, 0);
+        this.bas = this.physics.add.sprite(this.width - 40, 200, 'carre').setOrigin(0, 0);
         this.bas.setDisplaySize(20, 100);
         this.bas.body.setAllowGravity(false);
         this.bas.setImmovable(true);
@@ -78,9 +78,6 @@ class Tableau extends Phaser.Scene {
             this.textplayer2.setText('Player 2 = ' + this.scoreplayer2);
         }
 
-        this.joueurGauche = new Joueur('Joueur 1','joueurGauche')
-        this.joueurDroite = new Joueur('joueur 2','joueurDroite')
-        console.log(this.joueurGauche)
 
         this.balleAucentre();
         this.initKeyboard();
